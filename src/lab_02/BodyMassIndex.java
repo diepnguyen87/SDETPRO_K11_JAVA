@@ -1,7 +1,5 @@
-package lab_2;
+package lab_02;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class BodyMassIndex {

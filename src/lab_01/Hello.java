@@ -1,4 +1,4 @@
-package lesson_1;
+package lab_01;
 
 public class Hello {
 
