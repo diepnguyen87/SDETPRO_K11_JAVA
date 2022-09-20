@@ -15,8 +15,9 @@ public class SimpleMenu {
                     System.exit(0);
                     break;
                 case 1:
-                    int randomNumber = enterRandomNumber();
-                    addNumbersIntoArrayList(numberList, randomNumber);
+                    System.out.print("Enter a number to add into list: ");
+                    int number = getNumberFromKeyboard();
+                    addNumbersIntoArrayList(numberList, number);
                     break;
                 case 2:
                     printNumbersInList(numberList);
@@ -28,7 +29,9 @@ public class SimpleMenu {
                     getMinimumNumberInList(numberList);
                     break;
                 case 5:
-                    searchNumberInList();
+                    System.out.print("Enter a number to search: ");
+                    int searchNumber = getNumberFromKeyboard();
+                    searchNumberInList(numberList, searchNumber);
                     break;
                 default:
                     System.out.println("Wrong option. Please enter again!");
@@ -57,11 +60,10 @@ public class SimpleMenu {
         return option;
     }
 
-    private static int enterRandomNumber() {
+    private static int getNumberFromKeyboard() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a number to add into list: ");
-        int randomNumber = scanner.nextInt();
-        return randomNumber;
+        int number = scanner.nextInt();
+        return number;
     }
 
     private static void addNumbersIntoArrayList(List<Integer> list, int number) {
@@ -76,7 +78,8 @@ public class SimpleMenu {
                     return;
                 case "Y":
                 default:
-                    number = enterRandomNumber();
+                    System.out.print("Enter a number to add into list: ");
+                    number = getNumberFromKeyboard();
                     continue;
             }
         }
@@ -100,6 +103,23 @@ public class SimpleMenu {
         System.out.println("===> Minimum number into current list: " + minimumNumber);
     }
 
-    private static void searchNumberInList() {
+    private static void searchNumberInList(List<Integer> list, int number) {
+
+        while (true) {
+            int index = list.indexOf(number);
+            System.out.printf("Position of %d is at index: %d\n", number, index);
+            System.out.print("Do you wanna continue? ");
+            Scanner scanner = new Scanner(System.in);
+            String answer = scanner.next().toUpperCase();
+            switch (answer) {
+                case "N":
+                    return;
+                case "Y":
+                default:
+                    System.out.print("Enter a number to search: ");
+                    number = getNumberFromKeyboard();
+                    continue;
+            }
+        }
     }
 }
