@@ -39,7 +39,7 @@ public class ArrayMerge {
         return mergedArray;
     }
 
-    public void merge2SortedArray_way1(int[] arr1, int[] arr2) {
+    public int[] merge2SortedArray_way1(int[] arr1, int[] arr2) {
 
         int[] arr3 = new int[arr1.length + arr2.length];
         int nextIndexArr3 = 0;
@@ -62,9 +62,6 @@ public class ArrayMerge {
                 break;
             }
         }
-
-        for (int item : arr3) {
-            System.out.printf("%d, ", item);
-        }
+        return arr3;
     }
 }
