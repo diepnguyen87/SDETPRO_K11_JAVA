@@ -17,6 +17,5 @@ public class FindMinMaxValue {
         }
         System.out.printf("Min value is: %d\n", minValue);
         System.out.printf("Max value is: %d\n", maxValue);
-
     }
 }
