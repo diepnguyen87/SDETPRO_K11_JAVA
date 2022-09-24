@@ -2,16 +2,22 @@ package lab_03;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FindMinMaxValue {
 
     public static void main(String[] args) {
-        Integer[] arr1 = {100, 1, 55, 30, 201, 6, 7, 11, 201};
+        Integer[] arr1 = {100, 1, 55, 30, 201, 6, 7, 11, 201, 30};
         Integer[] arr2 = {11, 388, 122, 6, 11, 201, 999};
-
-        List<Integer> dumpList = getDuplicateList_Way2(arr1, arr2);
-        System.out.println("Cac gia tri duplicate: " + dumpList);
+        String[] arr = new String[3];
+        //List<Integer> dumpList = getDuplicateList_Way2(arr1, arr2);
+        //System.out.println("Cac gia tri duplicate: " + dumpList);
+        String[] arr3 = new String[]{"true", "true", "true", "true"};
+        String[] values = {"true", "false"};
+        Set<String[]> set = combinationNElement(arr3, values);
+        printValueInSetCollection(set);
     }
+
 
     public static void getMinMaxValue(int[] arr) {
         int minValue = arr[0];
@@ -89,6 +95,42 @@ public class FindMinMaxValue {
             }
         }
         return duplicateList;
+    }
+
+    public static Set<String[]> combinationNElement(String[] arr, String[] valuesInArr) {
+        Set<String[]> set = new HashSet<>();
+        for (int i = 0; i < arr.length; i++) {
+            for (int i1 = 0; i1 < valuesInArr.length; i1++) {
+                for (int i2 = 0; i2 < valuesInArr.length; i2++) {
+                    String[] arr4 = new String[4];
+                    arr4[i] = valuesInArr[i1];
+                    for (int i3 = 0; i3 < arr4.length; i3++) {
+                        if (i == i3) {
+                            continue;
+                        }
+                        arr4[i3] = valuesInArr[i2];
+                    }
+                    set.add(arr4);
+                }
+            }
+        }
+        return set;
+    }
+
+    public static void printValueInSetCollection(Set<String[]> set) {
+        Iterator iter = set.iterator();
+        while (iter.hasNext()) {
+            System.out.println(Arrays.toString((String[]) iter.next()));
+        }
+    }
+
+    public static void printIsoscelesRightTriangle(int n) {
+        for (int row = 0; row < n; row++) {
+            for (int i = 0; i < row + 1; ++i) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
     }
 }
 
