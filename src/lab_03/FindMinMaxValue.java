@@ -1,5 +1,6 @@
 package lab_03;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,8 +15,8 @@ public class FindMinMaxValue {
         //System.out.println("Cac gia tri duplicate: " + dumpList);
         String[] arr3 = new String[]{"true", "true", "true", "true"};
         String[] values = {"true", "false"};
-        Set<String[]> set = combinationNElement(arr3, values);
-        printValueInSetCollection(set);
+        combinationNElement_Way3(4, values);
+
     }
 
 
@@ -97,7 +98,7 @@ public class FindMinMaxValue {
         return duplicateList;
     }
 
-    public static Set<String[]> combinationNElement(String[] arr, String[] valuesInArr) {
+    public static Set<String[]> combinationNElement_Way1(String[] arr, String[] valuesInArr) {
         Set<String[]> set = new HashSet<>();
         for (int i = 0; i < arr.length; i++) {
             for (int i1 = 0; i1 < valuesInArr.length; i1++) {
@@ -115,6 +116,32 @@ public class FindMinMaxValue {
             }
         }
         return set;
+    }
+
+    public static void combinationNElement_Way2(String[] arr, String[] valuesInArr) {
+        for (int i = 0; i < valuesInArr.length; i++) {
+            for (int i1 = 0; i1 < valuesInArr.length; i1++) {
+                for (int i2 = 0; i2 < valuesInArr.length; i2++) {
+                    for (int i3 = 0; i3 < valuesInArr.length; i3++) {
+                        System.out.println(Arrays.toString(new String[]{valuesInArr[i], valuesInArr[i1], valuesInArr[i2], valuesInArr[i3]}));
+                    }
+                }
+            }
+        }
+    }
+
+    public static void combinationNElement_Way3(int n, String[] valuesInArr) {
+        //System.out.println();
+        for (int i = 0; i < valuesInArr.length; i++) {
+            if(n == 1) {
+                System.out.println(valuesInArr[i] + " ");
+                n = 4;
+            }else{
+                System.out.print(valuesInArr[i] + " ");
+                --n;
+            }
+            combinationNElement_Way3(n, valuesInArr);
+        }
     }
 
     public static void printValueInSetCollection(Set<String[]> set) {
