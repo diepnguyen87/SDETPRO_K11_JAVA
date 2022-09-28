@@ -15,7 +15,7 @@ public class FindMinMaxValue {
         //System.out.println("Cac gia tri duplicate: " + dumpList);
         String[] arr3 = new String[]{"true", "true", "true", "true"};
         String[] values = {"true", "false"};
-        combinationNElement_Way3(4, values);
+        combinationNElement_Way4();
 
     }
 
@@ -141,6 +141,15 @@ public class FindMinMaxValue {
                 --n;
             }
             combinationNElement_Way3(n, valuesInArr);
+        }
+    }
+
+    public static void combinationNElement_Way4() {
+        for (int i = 0; i < 16; i++) {
+            String str = String.format("%4s", Integer.toBinaryString(i)).replaceAll(" ", "0");
+            str = str.replaceAll("0", "false " );
+            str = str.replaceAll("1", "true " );
+            System.out.println(str);
         }
     }
 
