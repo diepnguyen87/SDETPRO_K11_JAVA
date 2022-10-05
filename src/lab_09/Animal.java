@@ -1,5 +1,7 @@
 package lab_09;
 
+import java.security.SecureRandom;
+
 public class Animal {
 
     private String name;
@@ -41,12 +43,13 @@ public class Animal {
         private int speed;
         private boolean flyable;
 
-        public void setName(String name) {
+        public Builder setName(String name) {
             this.name = name;
+            return this;
         }
 
-        public Builder withSpeed(int speed) {
-            this.speed = speed;
+        public Builder withSpeed(int maxSpeed) {
+            this.speed = new SecureRandom().nextInt(maxSpeed);;
             return this;
         }
 
