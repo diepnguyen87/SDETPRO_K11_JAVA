@@ -5,12 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import lab_10.Animal;
-
-public class AnimalController {
+public class AnimalTest {
 
     public static void main(String[] args) {
-        AnimalController aniController = new AnimalController();
+        AnimalTest aniController = new AnimalTest();
 
         Animal tiger = new Tiger().setSpeed(55);
         Animal horse = new Horse().setSpeed(50);
