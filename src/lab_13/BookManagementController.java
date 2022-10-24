@@ -10,7 +10,7 @@ public class BookManagementController {
     private static final String SEPARATOR = " - ";
     private static List<Book> bookList;
 
-    public int addNewBook(Book newBook) {
+    public WRITING_RESULT addNewBook(Book newBook) {
 
         try (
                 FileOutputStream output = new FileOutputStream(filePath, true);
@@ -23,9 +23,9 @@ public class BookManagementController {
 
         } catch (IOException e) {
             e.printStackTrace();
-            return 0;
+            return WRITING_RESULT.FAILED_TO_WRITING;
         }
-        return 1;
+        return WRITING_RESULT.SUCCEED;
     }
 
     public Book findBook(String findISBN) {
@@ -39,7 +39,7 @@ public class BookManagementController {
         return null;
     }
 
-    private List<Book> getBooksList() {
+    public List<Book> getBooksList() {
         bookList = new ArrayList<>();
         FileInputStream input = null;
         try {
@@ -64,9 +64,11 @@ public class BookManagementController {
         return bookList;
     }
 
-    public boolean updateBookByField(String isbn, BookFields bf, String value) {
-        bookList = getBooksList();
+    public WRITING_RESULT updateBookByField(String isbn, BookFields bf, String value) {
         Book updateBook = findBook(isbn);
+        if (updateBook == null) {
+            return WRITING_RESULT.ISBN_NOT_EXIST;
+        }
         switch (bf) {
             case TITLE:
                 updateBook.setTitle(value);
@@ -81,20 +83,19 @@ public class BookManagementController {
         return writeBookListIntoFile(bookList);
     }
 
-    public boolean updateBookByAll(String updateISBN, String newTitle, String newAuthor, int newYear) {
-        bookList = getBooksList();
-        for (int i = 0; i < bookList.size(); i++) {
-            Book currentBook = bookList.get(i);
-            if (currentBook.getISBN().equals(updateISBN)) {
-                currentBook.setTitle(newTitle);
-                currentBook.setAuthor(newAuthor);
-                currentBook.setYear(newYear);
-            }
+    public WRITING_RESULT updateBookByAll(String updateISBN, String newTitle, String newAuthor, int newYear) {
+        Book updateBook = findBook(updateISBN);
+        if (updateBook == null) {
+            return WRITING_RESULT.ISBN_NOT_EXIST;
         }
+        updateBook.setTitle(newTitle);
+        updateBook.setAuthor(newAuthor);
+        updateBook.setYear(newYear);
+
         return writeBookListIntoFile(bookList);
     }
 
-    private boolean writeBookListIntoFile(List<Book> bookList) {
+    private WRITING_RESULT writeBookListIntoFile(List<Book> bookList) {
         try (
                 FileOutputStream output = new FileOutputStream(filePath);
                 OutputStreamWriter writer = new OutputStreamWriter(output);
@@ -109,8 +110,26 @@ public class BookManagementController {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return WRITING_RESULT.FAILED_TO_WRITING;
         }
-        return true;
+        return WRITING_RESULT.SUCCEED;
+    }
+
+    public WRITING_RESULT deleteBook(String deletedISBN) {
+        Book deletedBook = findBook(deletedISBN);
+        if (deletedBook == null) {
+            return WRITING_RESULT.ISBN_NOT_EXIST;
+        }
+        bookList.remove(deletedBook);
+        return writeBookListIntoFile(bookList);
+    }
+
+    public void printBookList(List<Book> bookList) {
+        for (int i = 0; i < bookList.size(); i++) {
+            System.out.printf("Book %02d: %s\n", i + 1, bookList.get(i).getTitle());
+            System.out.println("\tISBN: " + bookList.get(i).getISBN());
+            System.out.println("\tAuthor: " + bookList.get(i).getAuthor());
+            System.out.println("\tYear: " + bookList.get(i).getYear());
+        }
     }
 }
